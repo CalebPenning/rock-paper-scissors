@@ -1,0 +1,17 @@
+{
+  "name": "rps",
+  "version": "1.0.0",
+  "description": "stupid game",
+  "main": "./dist/app.js",
+  "author": "caleb",
+  "license": "MIT",
+  "scripts": {
+    "predev": "yarn tsc",
+    "dev": "node ."
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
+    "@types/node": "^22.2.0",
+    "typescript": "^5.5.4"
+  }
+}
