@@ -1,6 +1,6 @@
 import { createInterface } from 'node:readline/promises'
 import { stdin as input, stdout as output } from 'node:process'
-import { waitForX } from './utils'
+import { wait } from './utils'
 
 type Move = 'rock' | 'paper' | 'scissors' | string
 
@@ -29,7 +29,7 @@ async function startGame() {
 
 async function playSolo() {
   console.log('Starting game...')
-  waitForX(2)
+  await wait(1)
 
   const updateScore = (player1Move: Move, player2Move: Move) => {
     const player1MoveNormalized = player1Move.toLowerCase()
@@ -86,20 +86,20 @@ async function playSolo() {
   }
 
   console.log('Get ready!')
-  waitForX(2)
+  await wait(2)
   console.log('Best two out of three rounds!')
-  waitForX(2)
+  await wait(2)
 
   let playerScore = 0
   let computerScore = 0
 
   while (playerScore < 3 && computerScore < 3) {
-    const answer = await rl.question('Rock, paper, or scissors?')
+    const answer = await rl.question('Rock, paper, or scissors? \n')
     updateScore(answer, getplayer2Move())
   }
 
   console.log(`${playerScore === 3 ? 'You' : 'Computer'} won!`)
-  waitForX(4)
+  await wait(4)
 
   const askRestart = await rl.question(
     'Enter "y" to restart or any other key to exit.',
@@ -113,7 +113,7 @@ async function playSolo() {
 
 async function playTwoPlayer() {
   console.log('Beginning two player mode...')
-  waitForX(2)
+  await wait(2)
 
   let player1Score = 0
   let player2Score = 0
@@ -155,12 +155,14 @@ async function playTwoPlayer() {
 
   while (player1Score < 3 && player2Score < 3) {
     const player1Answer = await rl.question('Player one, enter your move: ')
+    console.clear()
     const player2Answer = await rl.question('Player two, enter your move: ')
+    console.clear()
     updateScore(player1Answer, player2Answer)
   }
 
   console.log(`${player1Score === 3 ? 'Player one' : 'Player two'} wins!`)
-  waitForX(4)
+  await wait(4)
 
   const askRestart = await rl.question(
     'Enter "y" to restart or any other key to exit.',
